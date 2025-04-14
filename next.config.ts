@@ -1,7 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+ trailingSlash: true,
+
+//  redirects: async () => [
+//    {
+//      source: '/:path*',
+//      destination: '/',
+//      permanent: false,
+//    },
+//  ]
 };
 
 export default nextConfig;
