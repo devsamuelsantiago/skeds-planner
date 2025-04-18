@@ -42,19 +42,19 @@ export default function LayoutView() {
   //   authenticate();
   // }, []);
 
+  const fetchPlans = async () => {
+    const user = auth.currentUser || (await signInAnonymously(auth)).user;
+    const userId = user.uid;
+    const q = query(collection(db, "plans"), where("userId", "==", userId));
+    const querySnapshot = await getDocs(q);
+    const plansData = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...(doc.data() as Omit<Plan, "id">),
+    }));
+    setPlans(plansData);
+    // setLoading(false);
+  };
   useEffect(() => {
-    const fetchPlans = async () => {
-      const user = auth.currentUser || (await signInAnonymously(auth)).user;
-      const userId = user.uid;
-      const q = query(collection(db, "plans"), where("userId", "==", userId));
-      const querySnapshot = await getDocs(q);
-      const plansData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...(doc.data() as Omit<Plan, "id">),
-      }));
-      setPlans(plansData);
-      // setLoading(false);
-    };
     fetchPlans();
   }, []);
 
@@ -75,6 +75,7 @@ export default function LayoutView() {
               role="combobox"
               aria-expanded={open}
               className="w-[200px] justify-between"
+              onClick={async () => await fetchPlans()}
             >
               Selecionar planos...
               <ChevronDown className="opacity-50" />
