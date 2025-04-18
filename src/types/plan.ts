@@ -1,8 +1,10 @@
-import type { Data } from "./data";
-
 export type Plan = {
-  id: number;
-  title: string;
-  description: string;
-  data: Data[];
+  id: string;
+  userId: string;
+  prompt: string;
+  createdAt: Date;
+  schedule: {
+    day: string;
+    subjects: { time: string; subject: string; done?: boolean }[];
+  }[];
 };

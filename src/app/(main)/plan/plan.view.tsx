@@ -10,7 +10,7 @@ type Props = {
   data: Data[];
 };
 
-export default function HomeView({ data }: Props) {
+export default function PlanView({ data }: Props) {
   const [selected, setSelected] = useState<Data | undefined>(undefined);
 
   useEffect(() => {
